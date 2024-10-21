@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "chinese_hsk"
+    "chinese_hsk",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
