@@ -1,0 +1,40 @@
+{% extends "chinese_hsk/layout.html" %}
+{% block body %}
+        <div class="container">
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-2">
+               
+              </div>
+              <div class="col-md-auto" style="margin: 25px 50px 75px 100px">
+                <h1>欢迎你来到领道中文!</h1>
+                <h2>Welcome to LingDao Chinese!</h2>
+                <p> Here I will create the first steps to this webapp </p>
+              </div>
+              <div class="col col-lg-2">
+               
+              </div>
+            </div>
+       
+
+        <div class="row" style="margin: 25px 50px 75px 100px">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Get Started</h5>
+                  <p class="card-text">Chose the right HSK Level for you!</p>
+                  <a href="{% url 'excercises' %}" class="btn btn-dark">开始</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Learn more </h5>
+                  <p class="card-text">Click here to learn more about this project! </p>
+                  <a href="#" class="btn btn-dark">看看</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+  {% endblock %}
