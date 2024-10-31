@@ -1,0 +1,10 @@
+{% extends "chinese_hsk/layout.html" %}
+{% block body %}
+<div class="container">
+    <h1>{{ text_title }}</h1>  <!-- Display the title -->
+    <div>
+        <p>{{ text_full }}</p>   <!-- Display the full text -->
+    </div>
+    <a href="{% url 'hsk_texts' some_hsk_level_variable %}" class="btn btn-secondary">Back to Texts</a>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "chinese_hsk/layout.html" %}
+{% block body %}
+<div class="container">
+    <h6 style="margin: 25px 50px 75px 100px">HSK Level {{ hsk_level }} </h6>
+    {% for text in texts %}
+        <div class="col-md-auto" style="margin: 25px 50px 75px 100px">
+            <h2>{{ text.texttitle.text_name }}</h2>
+            <p>{{ text.textfull.text_full }}</p>
+
+            {% if text.textparagraph_set.first %}
+            <div class="text-center">
+                <a href="{% url 'paragraph_blankedeasy' text_id=text.text_id p_number=1 %}"class="btn btn-dark">学习</a>
+            </div>
+            {% else %}
+                <p><em>No paragraphs available for this text.</em></p>
+            {% endif %}
+        </div>
+    {% empty %}
+        <li>No texts available for this HSK level.</li>
+    {% endfor %}
+</div>
+{% endblock %}

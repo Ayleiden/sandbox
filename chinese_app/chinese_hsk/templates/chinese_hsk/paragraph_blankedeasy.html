@@ -1,0 +1,56 @@
+{% extends "chinese_hsk/layout.html" %}
+{% block body %}
+
+<div class="container">
+    <h2>Fill in the Blanked-Out Segment</h2>
+    <p>{{ paragraph_blanked }}</p>
+
+    <div class="segment-words">
+        <p>Select the missing words in the correct order:</p>
+        {% for word in segment_words %}
+            <button class="btn btn-secondary word-button" data-word="{{ word }}">{{ word }}</button>
+        {% endfor %}
+    </div>
+    
+    <!-- Display for user-constructed segment -->
+    <div class="user-segment-display"></div>
+
+    <!-- Single result message div -->
+    <div class="result-message" style="margin-top: 20px;"></div>
+</div>
+
+<script>
+    // Ensure correctSegment is treated as a string
+    const correctSegment = "{{ random_segment|safe }}";
+    let userOrder = [];
+
+    // Display areas for the user's constructed segment and feedback
+    const userSegmentDisplay = document.querySelector('.user-segment-display');
+    const resultMessage = document.querySelector('.result-message');
+
+    document.querySelectorAll('.word-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const word = this.getAttribute('data-word');
+            userOrder.push(word);
+            this.disabled = true;
+
+            // Update the displayed sentence
+            userSegmentDisplay.innerText = userOrder.join(" ");
+
+            // Check if the user-constructed segment matches the correct segment
+            if (userOrder.join("") === correctSegment.replace(/\s/g, '')) {
+                resultMessage.innerText = "Congratulations! You got it right!";
+            } else if (userOrder.join("") === correctSegment.replace(/\s/g, '').length) {
+                // Display "Try again!" and reset if the user's attempt is incorrect
+                resultMessage.innerText = "Try again!";
+                userOrder = [];
+                userSegmentDisplay.innerText = "";  // Clear the displayed sentence
+
+                // Re-enable buttons for a new attempt
+                document.querySelectorAll('.word-button').forEach(btn => btn.disabled = false);
+            }
+        });
+    });
+</script>
+
+{% endblock %}
