@@ -13,44 +13,54 @@
     </div>
     
     <!-- Display for user-constructed segment -->
-    <div class="user-segment-display"></div>
+    <div class="container"></div>
+    <div class="container" id="user-output">
+    </div>
 
     <!-- Single result message div -->
-    <div class="result-message" style="margin-top: 20px;"></div>
+    <div class="container" style="margin-top: 20px;">
+        <div class="container" id="result-message">
+
+        </div>
+    </div>
 </div>
 
 <script>
     // Ensure correctSegment is treated as a string
     const correctSegment = "{{ random_segment|safe }}";
-    let userOrder = [];
-
-    // Display areas for the user's constructed segment and feedback
-    const userSegmentDisplay = document.querySelector('.user-segment-display');
-    const resultMessage = document.querySelector('.result-message');
+    console.log("correctSegment");
+    let userText = [];
 
     document.querySelectorAll('.word-button').forEach(button => {
         button.addEventListener('click', function() {
-            const word = this.getAttribute('data-word');
-            userOrder.push(word);
+            
+            console.log(button.innerText);
+            userText.push(button.innerText);
             this.disabled = true;
-
-            // Update the displayed sentence
-            userSegmentDisplay.innerText = userOrder.join(" ");
-
-            // Check if the user-constructed segment matches the correct segment
-            if (userOrder.join("") === correctSegment.replace(/\s/g, '')) {
-                resultMessage.innerText = "Congratulations! You got it right!";
-            } else if (userOrder.join("") === correctSegment.replace(/\s/g, '').length) {
-                // Display "Try again!" and reset if the user's attempt is incorrect
-                resultMessage.innerText = "Try again!";
-                userOrder = [];
-                userSegmentDisplay.innerText = "";  // Clear the displayed sentence
-
-                // Re-enable buttons for a new attempt
-                document.querySelectorAll('.word-button').forEach(btn => btn.disabled = false);
+            console.log(userText);
+            var userTextString = userText.join("");
+            console.log(userTextString);
+            document.querySelector('#user-output').innerText = userTextString;
+    
+            if(userTextString.length === correctSegment.length){
+                console.log("This works!!!");
+                if(userTextString === correctSegment){
+                    document.querySelector('#result-message').innerText = "Congratulation! You did it!"
+                }
+                else{
+                    userText = [];
+                    document.querySelector('#result-message').innerText = "Incorrect, Try again!";
+                    document.querySelectorAll('.word-button').forEach(button => {
+                        button.disabled = false; // Enable each button
+                    });
+                }
+    
             }
-        });
+    
+            });
     });
+
 </script>
+
 
 {% endblock %}
